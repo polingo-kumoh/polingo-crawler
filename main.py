@@ -2,7 +2,13 @@ import nltk
 from crawler import Crawler
 from article_insertor import ArticleInsertor
 import pytz
+import os
 
+
+host = os.environ["MYSQL_HOST"]
+username = os.environ["MYSQL_USERNAME"]
+password = os.environ["MYSQL_PASSWORD"]
+database = os.environ["MYSQL_DATABASE"]
 
 def main():
     # 최초 실행시 punkt 1번만 다운 필요
@@ -13,7 +19,7 @@ def main():
 
     cnn_crawler = Crawler(cnn_url, "en")
     nhk_crawler = Crawler(nhk_url, "ja")
-    article_insertor = ArticleInsertor("localhost", "root", "1111", "polingo")
+    article_insertor = ArticleInsertor(host, username, password, database)
 
 
     cnn_articles = filter_and_sort_articles(cnn_crawler.crawl(0, 20))
