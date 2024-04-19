@@ -1,45 +1,26 @@
 import newspaper
 import nltk
-# 최초 실행시 punkt 1번만 다운 필요
-#nltk.download('punkt')
 
 cnn_url = 'https://edition.cnn.com'
-cnn_paper = newspaper.build(cnn_url, memoize_articles=False)
 
-#bbc_url = 'https://www.bbc.com/news'
-#bbc_paper = newspaper.build(bbc_url, memoize_articles=False)
 
-# 최신 10개 기사에 대해 반복
-for i, article in enumerate(cnn_paper.articles[:10], 1):
-    # 기사 다운로드 및 파싱
-    article.download()
-    article.parse()
-    
-    print("URL:", article.url)
+class Crawler:
+    def __init__(self, url, language):
+        self.paper = newspaper.build(url, memoize_articles=False, language= language)
 
-    # 발행날짜 출력
-    print("발행날짜:", article.publish_date)
+    def crawl(self, start=0, end=10):
+        result = []
 
-    # 기사 제목 출력
-    print("제목:", article.title)
-    
-    # 기사 본문 출력
-    #print("본문:", article.text)
+        # 맨앞 5개는 이상한 값이 들어가 있어서 5번 이상의 뉴스를 가져옴
+        for i, article in enumerate(self.paper.articles[start:end], 1):
+            parsed_article = {}
+            article.download()
+            article.parse()
 
-    # 문장별로 텍스트 저장
-    sentences = nltk.sent_tokenize(article.text)
-    print("문장별 텍스트:")
-    for idx, sentence in enumerate(sentences, 1):
-        print(f"{idx}. {sentence}")
-    
-    # 기사 이미지 URL 출력
-    if article.top_image:
-        print("이미지:", article.top_image)
-    
-    # 기사 키워드 출력
-    article.nlp()
-    print("키워드:", article.keywords)
-    
-    # 기사 요약 출력
-    print("요약:", article.summary)
-    print(f"------------{i}번째 기사------------\n")
+            parsed_article["url"] = article.url
+            parsed_article["publish_date"] = article.publish_date
+            parsed_article["title"] = article.title
+            parsed_article["sentences"] = nltk.sent_tokenize(article.text)
+            parsed_article["image"] = article.top_image
+            result.append(parsed_article)
+        return result
