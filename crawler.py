@@ -7,7 +7,7 @@ cnn_url = 'https://edition.cnn.com'
 class Crawler:
     def __init__(self, url, language):
         self.paper = newspaper.build(url, memoize_articles=False, language= language)
-        self.language = language
+
     def crawl(self, start=0, end=10):
         result = []
 
@@ -22,6 +22,5 @@ class Crawler:
             parsed_article["title"] = article.title
             parsed_article["sentences"] = nltk.sent_tokenize(article.text)
             parsed_article["image"] = article.top_image
-            parsed_article["language"] = self.language
             result.append(parsed_article)
         return result
