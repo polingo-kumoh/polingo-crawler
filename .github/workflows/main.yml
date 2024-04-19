@@ -6,7 +6,7 @@ on:
     - cron: '0 0 * * *'  # At 00:00 (UTC) every day
 
 jobs:
-  run_crawler:
+  run_python_script:
     runs-on: ubuntu-latest
     env:
       MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
