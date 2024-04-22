@@ -18,6 +18,8 @@ def main():
     nltk.download('punkt')
 
     slack_api = SlackAPI(slack_token)
+    channel_id = slack_api.get_channel_id("polingo-logs")
+
     
     cnn_url = 'https://edition.cnn.com'
     nhk_url = 'https://www3.nhk.or.jp/news/'
@@ -49,7 +51,6 @@ def main():
         slack_api.post_message(channel_id, f"CRAWLER : News Crawl Save Failed")
     
     
-    channel_id = slack_api.get_channel_id("polingo-logs")
     slack_api.post_message(channel_id, f"CRAWLER : News Crawling Save Completed : english - {len(cnn_articles)}, japanese - {len(nhk_articles)}")
 
 def filter_and_sort_articles(articles):
