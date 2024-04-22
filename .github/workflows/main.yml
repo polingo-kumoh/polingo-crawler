@@ -13,6 +13,7 @@ jobs:
       MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
       MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
       MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+      SLACK_TOKEN : ${{secrets.SLACK_TOKEN}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
