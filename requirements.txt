@@ -4,3 +4,4 @@ lxml_html_clean
 pymysql
 DBUtils
 pytz
+slack_sdk
