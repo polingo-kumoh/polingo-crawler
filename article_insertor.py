@@ -45,6 +45,7 @@ class ArticleInsertor:
         except pymysql.Error as e:
             print(f"Error: {e}")
             conn.rollback()
+            raise
         finally:
             # 커서 및 커넥션 종료
             cursor.close()
