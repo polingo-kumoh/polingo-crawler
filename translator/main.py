@@ -1,5 +1,10 @@
 from common.article_repository import ArticleRepository
+from dotenv import load_dotenv
+import os
 
+
+if os.getenv('CI') != 'true':
+    load_dotenv()
 
 import os
 

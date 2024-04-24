@@ -3,8 +3,12 @@ from crawler.crawler_en import CnnCrawler
 from crawler.crawler_jp import NhkCrawler
 from common.article_repository import ArticleRepository
 from slack_bot import SlackAPI
-
+from dotenv import load_dotenv
 import os
+
+if os.getenv('CI') != 'true':
+    load_dotenv()
+
 
 slack_token = os.environ["SLACK_TOKEN"]
 

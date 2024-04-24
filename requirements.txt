@@ -5,3 +5,4 @@ pymysql
 DBUtils
 pytz
 slack_sdk
+python-dotenv

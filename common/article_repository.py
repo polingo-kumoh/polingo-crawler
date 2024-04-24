@@ -51,9 +51,34 @@ class ArticleRepository:
             cursor.close()
             conn.close()
 
-
-    def findAll(self, offset = 0, limit = 10):
-        return None
+    def findAll(self, offset=0, limit=10):
+        # 데이터베이스 연결 설정
+        conn = self.pool.connection()
+        try:
+            # 커서 생성
+            cursor = conn.cursor()
+            # SQL 쿼리 작성
+            sql = """
+            SELECT news.id, news.title, news.publish_date, news.image_url, news.news_url,
+                   news_sentence.grammars, news_sentence.origin_text, news_sentence.translated_text
+            FROM news
+            JOIN news_sentence ON news.id = news_sentence.news_id
+            ORDER BY news.publish_date DESC
+            LIMIT %s OFFSET %s
+            """
+            # SQL 쿼리 실행
+            cursor.execute(sql, (limit, offset))
+            # 결과를 가져와 반환
+            result = cursor.fetchall()
+            return result
+        except pymysql.Error as e:
+            print(f"Error: {e}")
+            conn.rollback()
+            raise
+        finally:
+            # 커서 및 커넥션 종료
+            cursor.close()
+            conn.close()
 
     def updateAll(self, articles : list):
         print("update")
