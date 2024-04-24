@@ -11,6 +11,8 @@ import os
 
 slack_token = os.environ["SLACK_TOKEN"]
 
+deepl_token = os.environ["DEEPL_TOKEN"]
+
 host = os.environ["MYSQL_HOST"]
 username = os.environ["MYSQL_USERNAME"]
 password = os.environ["MYSQL_PASSWORD"]
@@ -19,7 +21,7 @@ database = os.environ["MYSQL_DATABASE"]
 
 def main():
     article_repository = ArticleRepository(host, username, password, database)
-    translator = ArticleTraslator()
+    translator = ArticleTraslator(deepl_token)
 
     articles = article_repository.findAll()
 
@@ -28,7 +30,7 @@ def main():
             origin_text = article_setentence["origin_text"]
             language_code = get_lang_code(article["language"])
 
-            article_setentence["translated_text"] = translator.translate(origin_text,language_code)
+            article_setentence["translated_text"] = translator.translate(origin_text)
         article_repository.update(article["sentences"])
 
 def get_lang_code(code):

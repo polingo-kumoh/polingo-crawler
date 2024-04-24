@@ -1,13 +1,12 @@
-from googletrans import Translator
-
+import deepl
 
 
 class ArticleTraslator:
 
-    def __init__(self):
-        self.translator = Translator()
+    def __init__(self, auth_key):
+        self.translator = deepl.Translator(auth_key)
 
-    def translate(self, text, lang="en"):
-        translated = self.translator.translate(text, dest="ko", src=lang)
+    def translate(self, text):
+        translated = self.translator.translate_text(text, target_lang="KO")
 
         return translated.text
