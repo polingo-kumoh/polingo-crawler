@@ -101,5 +101,24 @@ class ArticleRepository:
             cursor.close()
             conn.close()
 
-    def updateAll(self, articles : list):
-        print("update")
+    def update(self, sentences : list):
+        # 데이터베이스 연결 설정
+        conn = self.pool.connection()
+        try:
+
+            for sentence in sentences:
+                # 커서 생성
+                cursor = conn.cursor()
+                # SQL 쿼리 작성
+                sql_update = """
+                UPDATE news_sentence
+                SET translated_text = %s
+                WHERE id = %s
+                """
+                # SQL 쿼리 실행
+                cursor.execute(sql_update, (sentence["translated_text"], sentence["sentence_id"]))
+            # 변경사항 저장
+            conn.commit()
+            print("article sentences save completed")
+        finally:
+            conn.close()
