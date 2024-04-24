@@ -51,3 +51,9 @@ class ArticleRepository:
             cursor.close()
             conn.close()
 
+
+    def findAll(self, offset = 0, limit = 10):
+        return None
+
+    def updateAll(self, articles : list):
+        print("update")
