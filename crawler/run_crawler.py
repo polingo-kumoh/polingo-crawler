@@ -1,7 +1,7 @@
 import nltk
-from crawler_en import CnnCrawler
-from crawler_jp import NhkCrawler
-from article_insertor import ArticleInsertor
+from crawler.crawler_en import CnnCrawler
+from crawler.crawler_jp import NhkCrawler
+from crawler.article_insertor import ArticleInsertor
 from slack_bot import SlackAPI
 
 import os
