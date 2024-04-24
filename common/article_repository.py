@@ -3,7 +3,7 @@ from dbutils.pooled_db import PooledDB
 import datetime
 
 
-class ArticleInsertor:
+class ArticleRepository:
 
     def __init__(self, host, username, password, database):
         self.pool = PooledDB(

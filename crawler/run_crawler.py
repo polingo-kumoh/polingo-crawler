@@ -1,7 +1,7 @@
 import nltk
 from crawler.crawler_en import CnnCrawler
 from crawler.crawler_jp import NhkCrawler
-from crawler.article_insertor import ArticleInsertor
+from common.article_repository import ArticleRepository
 from slack_bot import SlackAPI
 
 import os
@@ -22,7 +22,7 @@ def main():
 
     cnn_crawler = CnnCrawler()
     nhk_crawler = NhkCrawler()
-    article_insertor = ArticleInsertor(host, username, password, database)
+    article_insertor = ArticleRepository(host, username, password, database)
 
     slack_api.post_message(channel_id, f"CRAWLER : News Crawling started")
 
