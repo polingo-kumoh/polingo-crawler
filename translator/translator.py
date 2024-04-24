@@ -1,7 +1,7 @@
 import deepl
 
 
-class ArticleTraslator:
+class ArticleTranslator:
 
     def __init__(self, auth_key):
         self.translator = deepl.Translator(auth_key)

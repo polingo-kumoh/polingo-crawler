@@ -2,7 +2,7 @@ import nltk
 from crawler.crawler_en import CnnCrawler
 from crawler.crawler_jp import NhkCrawler
 from common.article_repository import ArticleRepository
-from slack_bot import SlackAPI
+from common.slack_bot import SlackAPI
 from dotenv import load_dotenv
 import os
 
