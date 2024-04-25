@@ -1,6 +1,6 @@
 import nltk
-from crawler.crawler_en import CnnCrawler
-from crawler.crawler_jp import NhkCrawler
+from crawler_en import CnnCrawler
+from crawler_jp import NhkCrawler
 from common.article_repository import ArticleRepository
 from common.slack_bot import SlackAPI
 from dotenv import load_dotenv
