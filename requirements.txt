@@ -7,3 +7,4 @@ pytz
 slack_sdk
 python-dotenv
 deepl
+cryptography
