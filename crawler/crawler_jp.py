@@ -32,8 +32,25 @@ class NhkCrawler:
             cleaned_text = re.sub(r'\s{2,}', ' ', article.text)
             split_sentences = re.split(r'(?<=。)', cleaned_text)
 
-            # 마지막 sentence는 공백값이라서 제거
-            parsed_article["sentences"] = split_sentences[:-1]
+            restructured_sentences = []
+
+            for sentence in split_sentences:
+                if sentence.strip():
+                    tokens = list(self.tokenizer.tokenize(sentence.strip()))
+
+                    new_sentence = ""
+
+                    for token in tokens:
+                        if token.part_of_speech.startswith("記号"):  # 구두점인 경우
+                            new_sentence += token.surface
+                        else:  # 단어인 경우
+                            if new_sentence:
+                                new_sentence += " "
+                            new_sentence += token.surface
+
+                    restructured_sentences.append(new_sentence)
+
+            parsed_article["sentences"] = restructured_sentences
             parsed_article["image"] = article.top_image
             result.append(parsed_article)
     
