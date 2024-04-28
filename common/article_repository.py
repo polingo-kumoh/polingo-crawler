@@ -28,7 +28,8 @@ class ArticleRepository:
             INSERT INTO news (created_at, publish_date, updated_at, image_url, news_url, title, language)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
-            cursor.execute(sql1, (now, article["publish_date"], now, article["image"], article["url"], article["title"] , article["language"]))
+            cursor.execute(sql1, (
+            now, article["publish_date"], now, article["image"], article["url"], article["title"], article["language"]))
 
             inserted_id = cursor.lastrowid
 
@@ -51,16 +52,18 @@ class ArticleRepository:
             cursor.close()
             conn.close()
 
-    def findAll(self, offset=0, limit=10):
+    def findAll(self, offset=0, limit=10, language=None):
         # 데이터베이스 연결 설정
         conn = self.pool.connection()
         try:
             # 커서 생성
             cursor = conn.cursor(pymysql.cursors.DictCursor)
             # 뉴스 기사만 먼저 가져옴
-            sql_news = """
+            sql_news = f"""
             SELECT id, title, publish_date, image_url, news_url, language
             FROM news
+            {f"WHERE news.language = '{language}'" if language is not None else ""}
+            
             ORDER BY publish_date DESC, id
             LIMIT %s OFFSET %s
             """
@@ -101,7 +104,7 @@ class ArticleRepository:
             cursor.close()
             conn.close()
 
-    def update(self, sentences : list):
+    def update(self, sentences: list):
         # 데이터베이스 연결 설정
         conn = self.pool.connection()
         try:
