@@ -1,6 +1,6 @@
 import newspaper
 import re
-
+from janome.tokenizer import Tokenizer
 
 
 
