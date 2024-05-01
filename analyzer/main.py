@@ -27,15 +27,17 @@ def main():
     articles = article_repository.findAll(language="ENGLISH")
     channel_id = slack_bot.get_channel_id("polingo-logs")
 
-
-    slack_bot.post_message(channel_id, f"Analyzer : News Analyze started")
+    if os.getenv('CI') == 'true':
+        slack_bot.post_message(channel_id, f"Analyzer : News Analyze started")
     for article in articles:
         for article_setentence in article["sentences"]:
             origin_text = article_setentence["origin_text"]
 
             article_setentence["grammars"] = analyzer.analyze(origin_text)
         article_repository.update(article["sentences"])
-    slack_bot.post_message(channel_id, f"Analyzer : News Analyze completed")
+
+    if os.getenv('CI') == 'true':
+        slack_bot.post_message(channel_id, f"Analyzer : News Analyze completed")
 
 
 

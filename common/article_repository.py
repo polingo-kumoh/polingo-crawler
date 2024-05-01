@@ -115,11 +115,11 @@ class ArticleRepository:
                 # SQL 쿼리 작성
                 sql_update = """
                 UPDATE news_sentence
-                SET translated_text = %s
+                SET translated_text = %s ,grammars = %s
                 WHERE id = %s
                 """
                 # SQL 쿼리 실행
-                cursor.execute(sql_update, (sentence["translated_text"], sentence["sentence_id"]))
+                cursor.execute(sql_update, (sentence["translated_text"], sentence["grammars"], sentence["sentence_id"]))
             # 변경사항 저장
             conn.commit()
             print("article sentences save completed")
