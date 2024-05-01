@@ -41,6 +41,7 @@ jobs:
       MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
       SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
       DEEPL_TOKEN: ${{ secrets.DEEPL_TOKEN }}
+      ANALYZER_URL: ${{secrets.ANALYZER_URL}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
