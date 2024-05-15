@@ -120,8 +120,9 @@ class ArticleRepository:
                 """
                 # SQL 쿼리 실행
                 cursor.execute(sql_update, (sentence["translated_text"], sentence["grammars"], sentence["sentence_id"]))
+                print(f"sentence {sentence['sentence_id']} saved.")
             # 변경사항 저장
             conn.commit()
-            print("article sentences save completed")
+            print("article sentences save committed")
         finally:
             conn.close()
