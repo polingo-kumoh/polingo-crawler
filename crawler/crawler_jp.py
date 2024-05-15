@@ -13,7 +13,7 @@ class NhkCrawler:
 
     def __init__(self):
         self.paper = newspaper.build(nhk_url, memoize_articles=False, language='ja')
-
+        self.tokenizer = Tokenizer()
 
     def crawl(self, size):
         filtered_articles = [article for article in self.paper.articles if article.url.startswith("https://www3.nhk.or.jp/news/html")]
